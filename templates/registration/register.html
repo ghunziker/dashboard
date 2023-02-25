@@ -1,0 +1,47 @@
+{% extends 'registration/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="row">
+        <img src="{% static 'assets/logo/RE_logo_white.png' %}" class="mx-auto d-block" style="max-width: 40%; display: block; margin-top: 2.0rem;" />
+      </div>
+      <div class="card border-0 shadow rounded-3 my-5">
+        <div class="card-body p-4 p-sm-5">
+          <h5 class="card-title text-center mb-5 fw-light fs-5">Request access</h5>
+          <form method="post" action="{% url 'register' %}">
+            {% csrf_token %} {% for field in form %}
+            <div class="form-floating mb-3">
+              <input
+                type="{% if 'password' in field.label_tag %}password{% else %}email{% endif %}"
+                name="{{ field.html_name }}"
+                class="form-control"
+                id="{{ field.id_for_label }}"
+                maxlength="{% if 'username' in field.label_tag %}80{% endif %}"
+                placeholder="{% if 'password' in field.label_tag %}Password{% else %}example@mail.com{% endif %}"
+                required>
+                <label for="{{ field.id_for_label }}">{% if 'password' in field.label_tag %}Password{% else %}Email address{% endif %}</label>
+                {% if field.errors %} {% for error in field.errors %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size:var(--bs-body-font-size);">
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  {{ error|escape }}
+                </div>
+                {% endfor %} {% endif %} {% endfor %}
+            </div>
+            <div class="d-grid">
+              {% if form.non_field_errors %} {% for error in form.non_field_errors %}
+              <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size:var(--bs-body-font-size);">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                {{ error|escape }}
+              </div>
+              {% endfor %} {% endif %}
+              <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

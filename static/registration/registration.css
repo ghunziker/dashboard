@@ -1,0 +1,25 @@
+/*!
+ * CSS Styles for registration
+ */
+body {
+    background: #B3A590;
+    background: linear-gradient(to right, #b3a590, #ffffff);
+}
+.btn-login {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+    background-color: #9DA2C7!important;
+    color: #ffffff;
+    border: none;
+}
+.btn-login:hover {
+  transition-duration: 0.4s;
+  background-color: #777C96!important;
+}
+.btn-login:active {
+  background-color: #6b6f85!important;
+}
+.form-control {
+  margin-bottom: 1.0rem;
+}
