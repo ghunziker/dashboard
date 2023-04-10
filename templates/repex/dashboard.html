@@ -1,0 +1,14 @@
+{% extends 'repex/base.html' %}
+{% block content %}
+
+<h1>Dashboard comming soon..</h1>
+
+<div class="card" style="width: 60rem; height: 60rem;">
+    <div class="card-body">
+        {% autoescape off %}
+        {{ plot_div }}
+        {% endautoescape %}
+    </div>
+  </div>
+
+{% endblock %}

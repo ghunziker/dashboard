@@ -13,16 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.urls import path
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.urls import path
+from .forms import CustomAuthenticationForm
 from . import views
+from repex import views as repex_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('login/', auth_views.LoginView.as_view(authentication_form = CustomAuthenticationForm, template_name='registration/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('home/', views.home, name='home'),
     path('register/', views.register, name='register'),
-    path('repex/', views.repex, name='repex'),
+
+    path('dashboard/', repex_views.dashboard, name='dashboard'),
+    path('products/', repex_views.products, name='products'),
+    path('data-upload/', repex_views.data_upload, name='data-upload'),
 ]

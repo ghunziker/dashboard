@@ -1,0 +1,79 @@
+{% extends 'repex/base.html' %}
+{% block content %}
+<div class="row">
+  <div class="col-sm-6 mb-3 mb-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Upload Article Master Data</h5>
+        <p class="card-text">Select the .csv file to upload. Warning: if a record already exists, it will be overwritten.</p>
+        <form method="POST" action="{% url 'data-upload' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+        <div class="input-group mb-3">
+          <button class="btn btn-primary" type="submit" id="btn_file1" name="btn_ArticleMasterData">Upload</button>
+          <input type="file" class="form-control" id="id_file1" name="ArticleMasterData" aria-label="Upload">
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 mb-3 mb-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Upload Passenger Numbers</h5>
+        <p class="card-text">Select the .csv file to upload. Warning: if a record already exists, it will be overwritten.</p>
+        <form method="POST" action="{% url 'data-upload' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+        <div class="input-group mb-3">
+          <button class="btn btn-primary" type="submit" id="btn_fiel2" name="btn_PassengerNumbers">Upload</button>
+          <input type="file" class="form-control" id="id_file2" aria-label="Upload", name="PassengerData">
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 mb-3 mb-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Upload Transactions</h5>
+        <p class="card-text">Not sure if we should upload a inbound and outbound transaction or if we just upload one "Transaction" file.</p>
+        <form method="POST" action="{% url 'data-upload' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          <label>Outbound file:</label>
+          <div class="input-group mb-3">
+            <input type="file" class="form-control" id="id_file3" aria-label="Outbound", name="Inbound">
+          </div>
+          <label>Outbound file:</label>
+          <div class="input-group mb-3">
+            <input type="file" class="form-control" id="id_file4" aria-label="Outbound", name="Outbound">
+          </div>
+          <button class="btn btn-primary" type="submit" id="btn_fiel4" name="btn_Outbound">Upload</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 mb-3 mb-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Delete data</h5>
+        <p class="card-text">Please select the tables which should be completly deleted.</p>
+        <form method="POST" action="{% url 'data-upload' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="id_deleteMaster" name="deleteMaster">
+            <label class="form-check-label" for="id_deleteMaster">Article Master data</label>
+          </div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="id_deletePassengers" name="deletePassengers">
+            <label class="form-check-label" for="id_deletePassengers">Passenger data</label>
+          </div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="id_deleteTransactions" name="deleteTransactions">
+            <label class="form-check-label" for="id_deleteTransactions">Transaction data</label>
+          </div>
+          <button class="btn btn-danger" type="submit" id="btn_delete" name="btn_delete">Delete tables</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

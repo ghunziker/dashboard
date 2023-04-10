@@ -1,49 +1,31 @@
 {% extends 'registration/base.html' %}
 {% load static %}
 {% block content %}
-<div class="container">
 
-  <div class="row">
-    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-      <div class="row">
-        <img src="{% static 'assets/logo/RE_logo_white.png' %}" class="mx-auto d-block" style="max-width: 40%; display: block; margin-top: 2.0rem;" />
-      </div>
-      <div class="card border-0 shadow rounded-3 my-5">
-        <div class="card-body p-4 p-sm-5">
-          <h5 class="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
-          <form method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-            <div class="form-floating mb-3">
-              <input type="email" name="username" class="form-control" id="id_user" placeholder="name@example.com" required>
-              <label for="id_user">Email address</label>
-            </div>
-            <div class="form-floating mb-3">
-              <input type="password" name="password" class="form-control" id="id_password" placeholder="Password" required>
-              <label for="id_password">Password</label>
-            </div>
-
-            <div class="form-check mb-3">
-              <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
-              <label class="form-check-label" for="rememberPasswordCheck">
-                Remember password
-              </label>
-            </div>
-            <div class="d-grid">
-              {% if form.non_field_errors %} {% for error in form.non_field_errors %}
-              <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size:var(--bs-body-font-size);">
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                {{ error|escape }}
-              </div>
-              {% endfor %} {% endif %}
-              <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign in</button>
-            </div>
-            <div style="text-align: center; margin-top: 1.0rem;">
-              <a style="color: #000000; text-align: center;" href="/register">Request access</a>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+<form method="POST" action="{% url 'login' %}">
+  {% csrf_token %}
+  {% for field in form %}
+  <div class="form-floating mb-3">
+    {{field}}
+    <label for="{{field.id_for_label}}">{{field.label}}</label>
   </div>
-</div>
+  {% endfor %}
+
+  <div class="d-grid">
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size: var(--bs-body-font-size)">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      {{ error|escape }}
+    </div>
+    {% endfor %} {% endif %}
+    <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">
+      Sign in
+    </button>
+  </div>
+  <div style="text-align: center; margin-top: 1rem">
+    <a style="color: #000000; text-align: center" href="/register">Request access</a>
+  </div>
+</form>
+
 {% endblock %}

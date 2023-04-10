@@ -26,11 +26,11 @@ SECRET_KEY = 'django-insecure-&5tz%5woj&(%qdqe*%30qgq6d-z2oe4s_er43mxs#t+7*ts*#&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.36', '127.0.0.1', 'localhost',]
+ALLOWED_HOSTS = ['192.168.1.30', '127.0.0.1', 'localhost',]
 
 # Login & Logout URLs
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/home/'
+LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/login/'
 
 # Application definition
@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_tables2',
+    'bootstrap_modal_forms',
+    'dashboard',
     'repex',
 ]
 
@@ -56,8 +59,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'dashboard.urls'
-LOGIN_REDIRECT_URL = "/repex"
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -133,3 +134,29 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+
+LOGGING = {
+    'version': 1,
+    # The version number of our log
+    'disable_existing_loggers': False,
+    # django uses some of its own loggers for internal operations. In case you want to disable them just replace the False above with true.
+    # A handler for WARNING. It is basically writing the WARNING messages into a file called WARNING.log
+    'handlers': {
+        'file': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'warning.log',
+        },
+    },
+    # A logger for WARNING which has a handler called 'file'. A logger can have multiple handler
+    'loggers': {
+       # notice the blank '', Usually you would put built in loggers like django or root here based on your needs
+        '': {
+            'handlers': ['file'], #notice how file variable is called in handler which has been defined above
+            'level': 'WARNING',
+            'propagate': True,
+        },
+    },
+}
+
+DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap5-responsive.html"
